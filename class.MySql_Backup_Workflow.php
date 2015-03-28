@@ -2,13 +2,21 @@
 
 class MySql_Workflow {
 
-    private $driver = 'mysql';
-    private $host = null;
-    private $user = null;
-    private $database = null;
-    private $password = null;
-    private $downloadPath = null;
-    private $pdo = null;
+    private $driver = 'mysql';    # @var string database driver
+    private $host = null;         # @var string host adress
+    private $user = null;         # @var string database user 
+    private $database = null;     # @var string database 
+    private $password = null;     # @var string database password
+    private $downloadPath = null; # @var string download folder path
+    private $pdo = null;          # @var object 
+   
+     /*
+     * @param string $ftpServer
+     * @param string $username
+     * @param string $password
+     * @param int    $port
+     * @return void
+     */
 
     public function __construct( $host, $database, $user, $password, $driver = null ) {
         $this->host = $host;
@@ -27,9 +35,18 @@ class MySql_Workflow {
         $this->pdo = new PDO( $dsn, $this->user, $this->password );
     }
     
+    /*
+     * @param string $path
+     * @return void
+     */
+    
     public function setDownloadPath($path){
         $this->downloadPath = dirname( dirname( __FILE__ ) ) . $path;
     }
+    
+    /*
+     * @return void
+     */
 
     public function databaseExport() {
         $today = date( "Y-m-d" );
